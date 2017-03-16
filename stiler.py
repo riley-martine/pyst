@@ -19,9 +19,9 @@
 
 import sys
 import os
-import commands
+import subprocess
 import pickle
-import ConfigParser
+import configparser
 
 def initconfig():
     rcfile=os.getenv('HOME')+"/.stilerrc"
@@ -40,16 +40,16 @@ TempFile = /tmp/tile_winlist
 """)
         cfg.close()
 
-    config=ConfigParser.RawConfigParser()
+    config=configparser.RawConfigParser()
     config.read(rcfile)
     return config
 
 
 def initialize():
-    desk_output = commands.getoutput("wmctrl -d").split("\n")
+    desk_output = subprocess.getoutput("wmctrl -d").split("\n")
     desk_list = [line.split()[0] for line in desk_output]
 
-    current =  filter(lambda x: x.split()[1] == "*" , desk_output)[0].split()
+    current =  [x for x in desk_output if x.split()[1] == "*"][0].split()
 
     desktop = current[0]
     width =  current[8].split("x")[0]
@@ -57,17 +57,17 @@ def initialize():
     orig_x =  current[7].split(",")[0]
     orig_y =  current[7].split(",")[1]
 
-    win_output = commands.getoutput("wmctrl -lG").split("\n")
+    win_output = subprocess.getoutput("wmctrl -lG").split("\n")
     win_list = {}
 
     for desk in desk_list:
-        win_list[desk] = map(lambda y: hex(int(y.split()[0],16)) , filter(lambda x: x.split()[1] == desk, win_output ))
+        win_list[desk] = [hex(int(y.split()[0],16)) for y in [x for x in win_output if x.split()[1] == desk]]
 
     return (desktop,orig_x,orig_y,width,height,win_list)
 
 
 def get_active_window():
-    return str(hex(int(commands.getoutput("xdotool getactivewindow 2>/dev/null").split()[0])))
+    return str(hex(int(subprocess.getoutput("xdotool getactivewindow 2>/dev/null").split()[0])))
     
 
 def store(object,file):
@@ -185,7 +185,7 @@ def raise_window(windowid):
 
 
 def left():
-    Width=MaxWidth/2-1
+    Width=MaxWidth//2-1
     Height=MaxHeight - WinTitle -WinBorder
     PosX=LeftPadding
     PosY=TopPadding
@@ -194,12 +194,29 @@ def left():
 
 
 def right():
-    Width=MaxWidth/2-1
+    Width=MaxWidth//2-1
     Height=MaxHeight - WinTitle - WinBorder 
-    PosX=MaxWidth/2
+    PosX=MaxWidth//2
     PosY=TopPadding
     move_active(PosX,PosY,Width,Height)
     raise_window(":ACTIVE:")
+
+def top():
+    Width=MaxWidth
+    Height=MaxHeight//2-WinTitle-WinBorder
+    PosX=0 
+    PosY=TopPadding
+    move_active(PosX,PosY,Width,Height)
+    raise_window(":ACTIVE:")
+
+def bottom():
+    Width=MaxWidth
+    Height=MaxHeight//2-WinTitle-WinBorder
+    PosX=0
+    PosY=MaxHeight//2-BottomPadding
+    move_active(PosX,PosY,Width,Height)
+    raise_window(":ACTIVE:")
+
     
 
 def compare_win_list(newlist,oldlist):
@@ -287,23 +304,27 @@ def max_all():
     arrange(get_max_all(len(winlist)),winlist)
 
 
-
-if sys.argv[1] == "left":
+arg=sys.argv[1]
+if arg == "left":
     left()
-elif sys.argv[1] == "right":
+elif arg == "right":
     right()
-elif sys.argv[1] == "simple":
+elif arg == "top":
+    top()
+elif arg == "bottom":
+    bottom()
+elif arg == "simple":
     simple()
-elif sys.argv[1] == "vertical":
+elif arg == "vertical":
     vertical()
-elif sys.argv[1] == "horizontal":
+elif arg == "horizontal":
     horiz()
-elif sys.argv[1] == "swap":
+elif arg == "swap":
     swap()
-elif sys.argv[1] == "cycle":
+elif arg == "cycle":
     cycle()
-elif sys.argv[1] == "maximize":
+elif arg == "maximize":
     maximize()
-elif sys.argv[1] == "max_all":
+elif arg == "max_all":
     max_all()
 

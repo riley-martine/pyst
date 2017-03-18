@@ -165,6 +165,7 @@ def get_max_all(wincount):
 
 def move_active(PosX,PosY,Width,Height):
     command =  " wmctrl -r :ACTIVE: -e 0," + str(PosX) + "," + str(PosY)+ "," + str(Width) + "," + str(Height)
+    print(command)
     os.system(command)
 
 
@@ -204,7 +205,7 @@ def right():
 def top():
     Width=MaxWidth
     Height=MaxHeight//2-WinTitle-WinBorder
-    PosX=0 
+    PosX=LeftPadding
     PosY=TopPadding
     move_active(PosX,PosY,Width,Height)
     raise_window(":ACTIVE:")
@@ -212,12 +213,42 @@ def top():
 def bottom():
     Width=MaxWidth
     Height=MaxHeight//2-WinTitle-WinBorder
-    PosX=0
+    PosX=LeftPadding
     PosY=MaxHeight//2-BottomPadding
     move_active(PosX,PosY,Width,Height)
     raise_window(":ACTIVE:")
 
-    
+def top_left():
+    Width=MaxWidth//2-1
+    Height=MaxHeight//2 - WinTitle - WinBorder
+    PosX=LeftPadding
+    PosY=TopPadding
+    move_active(PosX,PosY,Width,Height)
+    raise_window(":ACTIVE:")
+
+def top_right():
+    Width=MaxWidth//2-1
+    Height=MaxHeight//2 - WinTitle - WinBorder
+    PosX=MaxWidth//2
+    PosY=TopPadding
+    move_active(PosX,PosY,Width,Height)
+    raise_window(":ACTIVE:")
+
+def bottom_left():
+    Width=MaxWidth//2-1
+    Height=MaxHeight//2 - WinTitle - WinBorder
+    PosX=LeftPadding
+    PosY=MaxHeight//2-1
+    move_active(PosX,PosY,Width,Height)
+    raise_window(":ACTIVE:")
+
+def bottom_right():
+    Width=MaxWidth//2-1
+    Height=MaxHeight//2 - WinTitle - WinBorder
+    PosX=MaxWidth//2
+    PosY=MaxHeight//2-1
+    move_active(PosX,PosY,Width,Height)
+
 
 def compare_win_list(newlist,oldlist):
     templist = []
@@ -313,6 +344,14 @@ elif arg == "top":
     top()
 elif arg == "bottom":
     bottom()
+elif arg == "top_left":
+    top_left()
+elif arg == "top_right":
+    top_right()
+elif arg == "bottom_left":
+    bottom_left()
+elif arg == "bottom_right":
+    bottom_right()
 elif arg == "simple":
     simple()
 elif arg == "vertical":

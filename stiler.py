@@ -46,9 +46,12 @@ TempFile = /tmp/tile_winlist
 
 
 def initialize():
+    # All workspaces and their data
     desk_output = subprocess.getoutput("wmctrl -d").split("\n")
+    # All workspace numbers
     desk_list = [line.split()[0] for line in desk_output]
 
+    # All data about the current workspace
     current =  [x for x in desk_output if x.split()[1] == "*"][0].split()
 
     desktop = current[0]
@@ -57,9 +60,11 @@ def initialize():
     orig_x =  current[7].split(",")[0]
     orig_y =  current[7].split(",")[1]
 
+    # All windows and their data
     win_output = subprocess.getoutput("wmctrl -lG").split("\n")
     win_list = {}
 
+    # Hex codes of windows, by desktop
     for desk in desk_list:
         win_list[desk] = [hex(int(y.split()[0],16)) for y in [x for x in win_output if x.split()[1] == desk]]
 
@@ -69,24 +74,6 @@ def initialize():
 def get_active_window():
     return str(hex(int(subprocess.getoutput("xdotool getactivewindow 2>/dev/null").split()[0])))
     
-
-def store(object,file):
-    with open(file, 'w') as f:
-        pickle.dump(object,f)
-    f.close()
-
-
-def retrieve(file):
-    try:
-        with open(file,'r+') as f:
-            obj = pickle.load(f)
-        f.close()
-        return(obj)
-    except:
-        f = open(file,'w')
-        f.close
-        dict = {}
-        return (dict)
 
 
 # Get all global variables
@@ -104,75 +91,18 @@ MaxWidth = int(MaxWidthStr) - LeftPadding - RightPadding
 MaxHeight = int(MaxHeightStr) - TopPadding - BottomPadding
 OrigX = int(OrigXstr) + LeftPadding
 OrigY = int(OrigYstr) + TopPadding 
-OldWinList = retrieve(TempFile)
-
-
-def get_simple_tile(wincount):
-    rows = wincount - 1
-    layout = [] 
-    if rows == 0:
-        layout.append((OrigX,OrigY,MaxWidth,MaxHeight-WinTitle-WinBorder))
-        return layout
-    else:
-        layout.append((OrigX,OrigY,int(MaxWidth*MwFactor),MaxHeight-WinTitle-WinBorder))
-
-    x=OrigX + int((MaxWidth*MwFactor)+(2*WinBorder))
-    width=int((MaxWidth*(1-MwFactor))-2*WinBorder)
-    height=int(MaxHeight/rows - WinTitle-WinBorder)
-    
-    for n in range(0,rows):
-        y= OrigY+int((MaxHeight/rows)*(n))
-        layout.append((x,y,width,height))
-
-    return layout
-
-
-def get_vertical_tile(wincount):
-    layout = [] 
-    y = OrigY
-    width = int(MaxWidth/wincount)
-    height = MaxHeight - WinTitle - WinBorder
-    for n in range(0,wincount):
-        x= OrigX + n * width
-        layout.append((x,y,width,height))
-
-    return layout
-
-
-def get_horiz_tile(wincount):
-    layout = [] 
-    x = OrigX
-    height = int(MaxHeight/wincount - WinTitle - WinBorder)
-    width = MaxWidth
-    for n in range(0,wincount):
-        y= OrigY + int((MaxHeight/wincount)*(n))
-        layout.append((x,y,width,height))
-
-    return layout
-
-def get_max_all(wincount):
-    layout = [] 
-    x = OrigX
-    y = OrigY 
-    height = MaxHeight - WinTitle - WinBorder
-    width = MaxWidth
-    for n in range(0,wincount):
-        layout.append((x,y,width,height))
-
-    return layout
-
 
 
 def move_active(PosX,PosY,Width,Height):
     command =  " wmctrl -r :ACTIVE: -e 0," + str(PosX) + "," + str(PosY)+ "," + str(Width) + "," + str(Height)
-    print(command)
     os.system(command)
 
 
+# Keeping this in so that we can multithread in the future
 def move_window(windowid,PosX,PosY,Width,Height):
     command =  " wmctrl -i -r " + windowid +  " -e 0," + str(PosX) + "," + str(PosY)+ "," + str(Width) + "," + str(Height)
     os.system(command)
-    command = "wmctrl -i -r " + windowid + " -b remove,hidden,shaded"
+    command = " wmctrl -i -r " + windowid + " -b remove,hidden,shaded"
     os.system(command)
 
 
@@ -250,75 +180,6 @@ def bottom_right():
     move_active(PosX,PosY,Width,Height)
 
 
-def compare_win_list(newlist,oldlist):
-    templist = []
-    for window in oldlist:
-        if newlist.count(window) != 0:
-            templist.append(window)
-    for window in newlist:
-        if oldlist.count(window) == 0: 
-            templist.append(window)
-    return templist
-
-
-def create_win_list():
-    Windows = WinList[Desktop]
-
-    if OldWinList == {}:
-        pass
-    else:
-        OldWindows = OldWinList[Desktop]
-        if Windows == OldWindows:
-            pass
-        else:
-            Windows = compare_win_list(Windows,OldWindows)
-
-    return Windows
-
-
-def arrange(layout,windows):
-    for win , lay  in zip(windows,layout):
-        move_window(win,lay[0],lay[1],lay[2],lay[3])
-    WinList[Desktop]=windows
-    store(WinList,TempFile)
-
-
-def simple():
-    Windows = create_win_list()
-    arrange(get_simple_tile(len(Windows)),Windows)
-   
-
-def swap():
-    winlist = create_win_list()
-    active = get_active_window()
-    winlist.remove(active)
-    winlist.insert(0,active)
-    arrange(get_simple_tile(len(winlist)),winlist)
-
-
-def vertical():
-    winlist = create_win_list()
-    active = get_active_window()
-    winlist.remove(active)
-    winlist.insert(0,active)
-    arrange(get_vertical_tile(len(winlist)),winlist)
-
-
-def horiz():
-    winlist = create_win_list()
-    active = get_active_window()
-    winlist.remove(active)
-    winlist.insert(0,active)
-    arrange(get_horiz_tile(len(winlist)),winlist)
-
-
-def cycle():
-    winlist = create_win_list()
-    winlist.insert(0,winlist[len(winlist)-1])
-    winlist = winlist[:-1]
-    arrange(get_simple_tile(len(winlist)),winlist)
-
-
 def maximize():
     Width=MaxWidth
     Height=MaxHeight - WinTitle -WinBorder
@@ -327,12 +188,6 @@ def maximize():
     move_active(PosX,PosY,Width,Height)
     raise_window(":ACTIVE:")
 
-def max_all():
-    winlist = create_win_list()
-    active = get_active_window()
-    winlist.remove(active)
-    winlist.insert(0,active)
-    arrange(get_max_all(len(winlist)),winlist)
 
 
 arg=sys.argv[1]
@@ -352,16 +207,6 @@ elif arg == "bottom_left":
     bottom_left()
 elif arg == "bottom_right":
     bottom_right()
-elif arg == "simple":
-    simple()
-elif arg == "vertical":
-    vertical()
-elif arg == "horizontal":
-    horiz()
-elif arg == "swap":
-    swap()
-elif arg == "cycle":
-    cycle()
 elif arg == "maximize":
     maximize()
 elif arg == "max_all":

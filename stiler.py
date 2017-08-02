@@ -23,6 +23,7 @@ import subprocess
 import pickle
 import configparser
 
+
 def initconfig():
     rcfile=os.getenv('HOME')+"/.stilerrc"
     if not os.path.exists(rcfile):
@@ -95,6 +96,7 @@ OrigY = int(OrigYstr) + TopPadding
 
 def move_active(PosX,PosY,Width,Height):
     command =  " wmctrl -r :ACTIVE: -e 0," + str(PosX) + "," + str(PosY)+ "," + str(Width) + "," + str(Height)
+    print(command)
     os.system(command)
 
 
@@ -189,26 +191,16 @@ def maximize():
     raise_window(":ACTIVE:")
 
 
-
-arg=sys.argv[1]
-if arg == "left":
-    left()
-elif arg == "right":
-    right()
-elif arg == "top":
-    top()
-elif arg == "bottom":
-    bottom()
-elif arg == "top_left":
-    top_left()
-elif arg == "top_right":
-    top_right()
-elif arg == "bottom_left":
-    bottom_left()
-elif arg == "bottom_right":
-    bottom_right()
-elif arg == "maximize":
-    maximize()
-elif arg == "max_all":
-    max_all()
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        usage = sys.argv[0] + " <option>"
+        print("Usage: "+ usage)
+        sys.exit(1)
+    else:
+        arg = sys.argv[1]
+        if arg in dir():
+            eval(sys.argv[1]+"()")
+        else:
+            print("Error! '{}' is not an option.".format(arg))
+            sys.exit(1)
 

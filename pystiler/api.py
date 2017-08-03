@@ -1,37 +1,40 @@
 #!/usr/bin/python3
 
 import argparse
-from screen import Screen
-
-parser = argparse.ArgumentParser(description='Python tiler for non-tiling wms')
-subparsers = parser.add_subparsers(help='sub-command help', dest='cmd')
-
-parser_english = subparsers.add_parser('move', help='English command help')
-parser_english.add_argument('location', type=str, help='Enter one of the available choices', choices=['right', 'left', 'bottom', 'top', 'center', 'top_left', 'top_right', 'bottom_left', 'bottom_right', 'maximize'])
-
-parser_api = subparsers.add_parser('explicit', help='API interface help')
-parser_api.add_argument('screen_columns', type=int)
-parser_api.add_argument('screen_rows', type=int)
-parser_api.add_argument('first_column', type=int)
-parser_api.add_argument('last_column', type=int)
-parser_api.add_argument('first_row', type=int)
-parser_api.add_argument('last_row', type=int)
+import sys
+from .screen import Screen
 
 
 
-args = parser.parse_args()
+def main(args):
+    parser = argparse.ArgumentParser(description='Python tiler for non-tiling wms')
+    subparsers = parser.add_subparsers(help='sub-command help', dest='cmd')
+    
+    parser_english = subparsers.add_parser('move', help='English command help')
+    parser_english.add_argument('location', type=str, help='Enter one of the available choices', choices=['right', 'left', 'bottom', 'top', 'top_left', 'top_right', 'bottom_left', 'bottom_right', 'maximize'])
+    
+    parser_api = subparsers.add_parser('explicit', help='API interface help')
+    parser_api.add_argument('screen_columns', type=int)
+    parser_api.add_argument('screen_rows', type=int)
+    parser_api.add_argument('first_column', type=int)
+    parser_api.add_argument('last_column', type=int)
+    parser_api.add_argument('first_row', type=int)
+    parser_api.add_argument('last_row', type=int)
+    
+    return parser.parse_args(args)
+
 
 def move(location):
     mapping = {
-        'right':        {'cols': (2,2), 'rows': (1,2)},
-        'left':         {'cols': (1,1), 'rows': (1,2)},
-        'bottom':       {'cols': (1,2), 'rows': (2,2)},
-        'top':          {'cols': (1,2), 'rows': (1,1)},
         'top_left':     {'cols': (1,1), 'rows': (1,1)},
-        'top_right':    {'cols': (2,2), 'rows': (1,1)},
+        'left':         {'cols': (1,1), 'rows': (1,2)},
         'bottom_left':  {'cols': (1,1), 'rows': (2,2)},
-        'bottom_right': {'cols': (2,2), 'rows': (2,2)},
+        'top':          {'cols': (1,2), 'rows': (1,1)},
         'maximize':     {'cols': (1,2), 'rows': (1,2)},
+        'bottom':       {'cols': (1,2), 'rows': (2,2)},
+        'top_right':    {'cols': (2,2), 'rows': (1,1)},
+        'right':        {'cols': (2,2), 'rows': (1,2)},
+        'bottom_right': {'cols': (2,2), 'rows': (2,2)},
     }
     screen = Screen(2,2)
     filled = mapping[location]
@@ -49,6 +52,7 @@ def explicit_move(cols, rows, f_col, l_col, f_row, l_row):
     pass
 
 if __name__ == "__main__":
+    args = main( sys.argv[1:] )
     if args.cmd == 'move':
         move(args.location)
     elif args.cmd == 'explicit':

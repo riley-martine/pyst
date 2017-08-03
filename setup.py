@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='pystiler',
-      version='0.1.2',
+      version='0.2.0',
       description='Python simple tiler for non-tiling window managers',
       long_description=readme(),
       classifiers=[
@@ -26,5 +26,8 @@ setup(name='pystiler',
       packages=['pystiler'],
       test_suite='nose.collector',
       tests_require=['nose'],
+      entry_points = {
+          'console_scripts': ['pyst=pystiler.api:main'],
+      },
       include_package_data=True,
       zip_safe=False)

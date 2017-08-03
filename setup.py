@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='pystiler',
-      version='0.2.0',
+      version='0.2.3',
       description='Python simple tiler for non-tiling window managers',
       long_description=readme(),
       classifiers=[

@@ -17,7 +17,7 @@ setup(name='pystiler',
         'Operating System :: Unix',
         'Programming Language :: Python :: 3.6',
         'Topic :: Desktop Environment :: Window Managers',
-      ]
+      ],
       keywords='window-manager tiling wm command-line cli',
       url='http://github.com/riley-martine/pystiler',
       author='Riley Martine',

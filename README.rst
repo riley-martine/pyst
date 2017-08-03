@@ -15,7 +15,8 @@ Bind it to a key or to autowhatever-on-window-creation-hook.
 
 Install
 ~~~~~~~
-Install with :: 
+Install with 
+:: 
     pip install pystiler
 
 

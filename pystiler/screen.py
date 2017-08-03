@@ -78,13 +78,14 @@ if __name__ == "__main__":
     first_row = int(sys.argv[3])
     last_row = int(sys.argv[4])
     first_col = int(sys.argv[5])
-
     last_col = int(sys.argv[6])
-    cols_filled = (first_col, last_col)
 
+    cols_filled = (first_col, last_col)
     rows_filled = (first_row, last_row)
+
     s = Screen(screen_rows, screen_cols)
     c = s.get_coords(cols_filled, rows_filled)
+
     print(c)
     s.move_active(*c)
 

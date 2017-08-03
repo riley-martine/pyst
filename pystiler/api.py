@@ -9,7 +9,6 @@ except ModuleNotFoundError:
     from .screen import Screen
 
 
-
 def parse_args(args):
     parser = argparse.ArgumentParser(description='Python tiler for non-tiling wms')
     subparsers = parser.add_subparsers(help='sub-command help', dest='cmd')
@@ -63,7 +62,10 @@ def explicit_move(s_cols, s_rows, f_col, l_col, f_row, l_row):
     screen.move_active(*coords)
 
 
-def main(args):
+def main(args=[]):
+    if args == []:
+        args = sys.argv[1:]
+
     params = parse_args(args)
     
     if params.cmd == 'move':
@@ -76,6 +78,7 @@ def main(args):
                       params.first_row,
                       params.last_row)
     
+
 
 if __name__ == "__main__":
     main( sys.argv[1:] )

@@ -1,4 +1,5 @@
-Stiler Spaces
+
+Pystiler Spaces
 =============
 
 The goal of this project is to be able to define tiled workspaces and
@@ -29,8 +30,6 @@ maximize
 
 All of which do pretty much what you'd expect to the active window.
 
-On first run it will create a config file ~/.stilerrc. Modify the values
-to suit your window decorations/Desktop padding.
 
 Todos for the project
 ~~~~~~~~~~~~~~~~~~~~~
@@ -38,6 +37,8 @@ Todos for the project
 -  [x] Add top and bottom targets
 -  [x] Add [top,bottom][left,right] targets
 -  [x] Add simple CLI interface
+-  [x] Add simple test cases
+-  [ ] Add tests for window resizing
 -  [ ] Find out what's causing wmctrl to misfire on second call
 -  [ ] Find out what bug fixes others have done
 -  [ ] Map out final goals of project

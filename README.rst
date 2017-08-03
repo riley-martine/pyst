@@ -76,6 +76,8 @@ Todos for the project
 -  [x] Add simple CLI interface
 -  [x] Add simple test cases
 -  [x] Make nice python package
+-  [ ] Add coverage
+-  [ ] Use logging instead of debug flag
 -  [ ] Add tests for window resizing
 -  [ ] Make explicit api nicer
 -  [ ] Find out why cols and rows reverse and fix it

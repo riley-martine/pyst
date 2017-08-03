@@ -24,5 +24,7 @@ setup(name='pystiler',
       author_email='riley.martine.0@gmail.com',
       license='MIT',
       packages=['pystiler'],
+      test_suite='nose.collector',
+      tests_require=['nose'],
       include_package_data=True,
       zip_safe=False)

@@ -4,6 +4,8 @@ import subprocess
 import os
 import sys
 
+DEBUG = False
+
 class Screen(object):
     def __init__(self, rows, cols, padding_bottom=20):
         self.rows = rows
@@ -41,9 +43,12 @@ class Screen(object):
         #[[(0, 640), (0, 522)],    [(640, 1280), (0, 522)],    [(1280, 1920), (0, 522)]],
         #[[(0, 640), (522, 1044)], [(640, 1280), (522, 1044)], [(1280, 1920), (522, 1044)]]
 
-        for i in self.grid:
-            print(i)
+        if DEBUG:
+            for i in self.grid:
+                print(i)
 
+
+    # umm ignore that the rows and columns switch here
     def get_coords(self, cols, rows):
         """Precondition: two two-tuples of (start,end) for rows and columns."""
         row_start, row_end = rows
@@ -67,7 +72,10 @@ class Screen(object):
 
     def move_active(self,x,y,w,h):
         command = ','.join(map(str, [" wmctrl -r :ACTIVE: -e 0", x, y, w, h]))
-        print(command)
+
+        if DEBUG:
+            print(command)
+
         os.system(command)
 
 
@@ -75,17 +83,19 @@ class Screen(object):
 if __name__ == "__main__":
     screen_rows = int(sys.argv[1])
     screen_cols = int(sys.argv[2])
-    first_row = int(sys.argv[3])
-    last_row = int(sys.argv[4])
-    first_col = int(sys.argv[5])
-    last_col = int(sys.argv[6])
+    first_col = int(sys.argv[3])
+    last_col = int(sys.argv[4])
+    first_row = int(sys.argv[5])
+    last_row = int(sys.argv[6])
 
     cols_filled = (first_col, last_col)
     rows_filled = (first_row, last_row)
 
     s = Screen(screen_rows, screen_cols)
-    c = s.get_coords(cols_filled, rows_filled)
+    c = s.get_coords(rows_filled, cols_filled)
 
-    print(c)
+    if DEBUG:
+        print(c)
+
     s.move_active(*c)
 

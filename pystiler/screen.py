@@ -5,9 +5,10 @@ import os
 import sys
 
 class Screen(object):
-    def __init__(self, rows, cols):
+    def __init__(self, rows, cols, padding_bottom=20):
         self.rows = rows
         self.cols = cols
+        self.padding_bottom = padding_bottom
        
         # All workspaces and their data
         desk_output = subprocess.getoutput("wmctrl -d").split("\n")
@@ -53,7 +54,7 @@ class Screen(object):
         x_coords = (x_start_coord, x_end_coord)
         
         y_start_coord = self.grid[row_start-1][0][1][0]
-        y_end_coord =   self.grid[row_end - 1][0][1][1]
+        y_end_coord =   self.grid[row_end - 1][0][1][1] - self.padding_bottom
         y_coords = (y_start_coord, y_end_coord)
 
 

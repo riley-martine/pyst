@@ -2,7 +2,11 @@
 
 import argparse
 import sys
-from .screen import Screen
+
+try:
+    from screen import Screen
+except ModuleNotFoundError:
+    from .screen import Screen
 
 
 
@@ -48,8 +52,15 @@ def move(location):
     screen.move_active(0,0,0,0)
     screen.move_active(*coords)
 
-def explicit_move(cols, rows, f_col, l_col, f_row, l_row):
-    pass
+def explicit_move(s_cols, s_rows, f_col, l_col, f_row, l_row):
+    cols_filled = (f_col, l_col)
+    rows_filled = (f_row, l_row)
+
+    screen = Screen(s_cols, s_rows)
+    coords = screen.get_coords(cols_filled, rows_filled)
+
+    screen.move_active(0,0,0,0)
+    screen.move_active(*coords)
 
 if __name__ == "__main__":
     args = main( sys.argv[1:] )

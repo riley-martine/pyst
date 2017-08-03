@@ -27,6 +27,3 @@ class TestParser(unittest.TestCase):
         self.assertEqual(args.last_row, 6)
 
 
-
-if __name__ == '__main__':
-    unittest.main()

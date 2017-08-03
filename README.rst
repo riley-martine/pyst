@@ -1,6 +1,9 @@
 
 Pystiler Spaces
 =============
+.. image:: https://badge.fury.io/py/pystiler.svg
+       :target: https://badge.fury.io/py/pystiler
+
 
 The goal of this project is to be able to define tiled workspaces and
 open them with ease on non-tiling wms.
@@ -9,6 +12,12 @@ This is a simple python script which wraps wmctrl to allow for easier
 tiling.
 
 Bind it to a key or to autowhatever-on-window-creation-hook.
+
+Install
+~~~~~~~
+Install with :: 
+    pip install pystiler
+
 
 run with
 

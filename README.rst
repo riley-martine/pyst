@@ -95,3 +95,4 @@ Todos for the project
 -  [ ] Make list of already-resized window IDs to mitigate the resizing
    problem
 -  [ ] Figure out async loading for workspaces
+-  [ ] Add code quality review

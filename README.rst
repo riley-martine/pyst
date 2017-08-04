@@ -13,37 +13,33 @@ tiling.
 
 Bind it to a key or to autowhatever-on-window-creation-hook, create scripts to setup a workspace, or make aliases to quickly move terminals.
 
+Originally a fork of github.com/TheWanderer/stiler, but has diverged to the point of countaining almost none of the original code.
+
 
 Install
 ~~~~~~~
 Install with 
+
 :: 
+
     pip3 install pystiler
 
 
-run simple commands with
+Usage
+~~~~~~
+You can use the pyst tool to move the active window.
+
+Run simple commands with
 
 ::
 
     pyst move <arg>
 
 
-Currently arguments are
-
-left, right
-
-top, bottom
-
-top\_left, bottom\_left
-
-top\_right, bottom\_right
-
-maximize
-
-All of which do pretty much what you'd expect to the active window.
+Currently arguments are left, right, top, bottom, top\_left, bottom\_left, top\_right, bottom\_right, and maximizem all of which do pretty much what you'd expect to the active window.
 
 
-run more complex commands with
+Run more complex commands with
 
 ::
 
@@ -67,6 +63,18 @@ and
 defines a screen grid of 3 rows, 2 columns, and resizes the active window to fill the first through second row of the first through second column (the top 2/3 of the screen)
 
 
+Workspacing
+~~~~~~~~~~~
+Using this script, you can define and run workspace configs.
+Example:
+
+::
+  
+    #!/bin/sh
+    xfce4-terminal && pyst move left
+    xfce4-terminal --working-directory=/var/www && pyst move bottom_right
+    xfce4-terminal --working-directory=/home && pyst move top_right
+
 
 Todos for the project
 ~~~~~~~~~~~~~~~~~~~~~
@@ -86,3 +94,4 @@ Todos for the project
 -  [ ] Map out final goals of project
 -  [ ] Make list of already-resized window IDs to mitigate the resizing
    problem
+-  [ ] Figure out async loading for workspaces

@@ -36,7 +36,7 @@ Run simple commands with
     pyst move <arg>
 
 
-Currently arguments are left, right, top, bottom, top\_left, bottom\_left, top\_right, bottom\_right, and maximizem all of which do pretty much what you'd expect to the active window.
+Currently arguments are left, right, top, bottom, top\_left, bottom\_left, top\_right, bottom\_right, and maximize, all of which do pretty much what you'd expect to the active window.
 
 
 Run more complex commands with

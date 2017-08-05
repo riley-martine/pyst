@@ -37,7 +37,7 @@ class Screen(object):
                 col.append((row_division*rownum, row_division*(rownum+1)))
                 row.append(col)
             self.grid.append(row)
-       
+
         
         #Grid format is something like this:
         #[[(0, 640), (0, 522)],    [(640, 1280), (0, 522)],    [(1280, 1920), (0, 522)]],

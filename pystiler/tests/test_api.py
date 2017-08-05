@@ -8,7 +8,7 @@ class TestParser(unittest.TestCase):
         args = pystiler.api.parse_args(['move', 'left'])
         self.assertEqual(args.cmd, 'move')
         self.assertEqual(args.location, 'left')
-        
+
     def test_all_directions(self):
         for direction in ['right', 'left', 'bottom', 'top', 'top_left', 'top_right', 'bottom_left', 'bottom_right', 'maximize']:
             with self.subTest(direction=direction):

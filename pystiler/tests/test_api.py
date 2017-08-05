@@ -3,7 +3,7 @@ import unittest
 import pystiler
 
 class TestParser(unittest.TestCase):
- 
+
     def test_move_parser(self):
         args = pystiler.api.parse_args(['move', 'left'])
         self.assertEqual(args.cmd, 'move')

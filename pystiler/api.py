@@ -23,7 +23,7 @@ def parse_args(args):
     parser_api.add_argument('last_column', type=int)
     parser_api.add_argument('first_row', type=int)
     parser_api.add_argument('last_row', type=int)
-    
+
     return parser.parse_args(args)
 
 

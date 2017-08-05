@@ -15,7 +15,7 @@ class Screen(object):
         # All workspaces and their data
         desk_output = subprocess.getoutput("wmctrl -d").split("\n")
         # All workspace numbers
-        desk_list = [line.split()[0] for line in desk_output]
+        # desk_list = [line.split()[0] for line in desk_output]
 
         # Data about current desktop. Not sure how it works with multiple.
         current = [line for line in desk_output if line.split()[1] == "*"][0].split()

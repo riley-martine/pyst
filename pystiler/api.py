@@ -15,7 +15,7 @@ def parse_args(args):
 
     parser_english = subparsers.add_parser('move', help='English Move Commands')
     parser_english.add_argument('location', type=str, help='Enter one of the available choices', choices=['right', 'left', 'bottom', 'top', 'top_left', 'top_right', 'bottom_left', 'bottom_right', 'maximize'])
-    
+
     parser_api = subparsers.add_parser('explicit', help='Direct API Interface')
     parser_api.add_argument('screen_columns', type=int)
     parser_api.add_argument('screen_rows', type=int)

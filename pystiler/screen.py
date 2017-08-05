@@ -1,4 +1,4 @@
-#!/usr/bin/python3 
+#!/usr/bin/python3
 
 import subprocess
 import os
@@ -11,7 +11,7 @@ class Screen(object):
         self.rows = rows
         self.cols = cols
         self.padding_bottom = padding_bottom
-       
+
         # All workspaces and their data
         desk_output = subprocess.getoutput("wmctrl -d").split("\n")
         # All workspace numbers
@@ -33,8 +33,8 @@ class Screen(object):
             row = []
             for colnum in range(cols):
                 col = []
-                col.append((col_division*colnum, col_division*(colnum+1))) 
-                col.append((row_division*rownum, row_division*(rownum+1))) 
+                col.append((col_division*colnum, col_division*(colnum+1)))
+                col.append((row_division*rownum, row_division*(rownum+1)))
                 row.append(col)
             self.grid.append(row)
        

@@ -12,7 +12,7 @@ except ModuleNotFoundError:
 def parse_args(args):
     parser = argparse.ArgumentParser(description='Python tiler for non-tiling wms')
     subparsers = parser.add_subparsers(help='sub-command help', dest='cmd')
-    
+ 
     parser_english = subparsers.add_parser('move', help='English Move Commands')
     parser_english.add_argument('location', type=str, help='Enter one of the available choices', choices=['right', 'left', 'bottom', 'top', 'top_left', 'top_right', 'bottom_left', 'bottom_right', 'maximize'])
     

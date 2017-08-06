@@ -7,7 +7,7 @@ def readme():
         return readme_file.read()
 
 setup(name='pystiler',
-      version='0.2.4',
+      version='0.2.5',
       description='Python simple tiler for non-tiling window managers',
       long_description=readme(),
       classifiers=[
@@ -25,7 +25,7 @@ setup(name='pystiler',
       author='Riley Martine',
       author_email='riley.martine.0@gmail.com',
       license='MIT',
-      packages=['pyst'],
+      packages=['pystiler'],
       test_suite='nose.collector',
       tests_require=['nose'],
       entry_points={

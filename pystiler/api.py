@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""API interface for pyst.screen."""
+"""API interface for pystiler.screen."""
 
 import argparse
 import sys
@@ -7,7 +7,7 @@ import sys
 try:
     from screen import Screen, move_coords
 except ModuleNotFoundError:
-    from pyst.screen import Screen, move_coords
+    from pystiler.screen import Screen, move_coords
 
 
 def parse_args(args):

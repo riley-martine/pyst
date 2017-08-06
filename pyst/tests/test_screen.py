@@ -1,3 +1,4 @@
+"""Test screen functionality."""
 import unittest
 from pystiler.screen import Screen
 

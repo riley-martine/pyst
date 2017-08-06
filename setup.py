@@ -6,8 +6,8 @@ def readme():
     with open('README.rst') as readme_file:
         return readme_file.read()
 
-setup(name='pyst',
-      version='0.2.3.3',
+setup(name='pystiler',
+      version='0.2.4',
       description='Python simple tiler for non-tiling window managers',
       long_description=readme(),
       classifiers=[
@@ -25,7 +25,7 @@ setup(name='pyst',
       author='Riley Martine',
       author_email='riley.martine.0@gmail.com',
       license='MIT',
-      packages=['pystiler'],
+      packages=['pyst'],
       test_suite='nose.collector',
       tests_require=['nose'],
       entry_points={

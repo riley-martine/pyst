@@ -9,3 +9,6 @@
 
 # Vim swap files
 *.swp
+
+# Wheel build dir
+/build/

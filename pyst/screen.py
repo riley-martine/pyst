@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Screen class for accessing screen information and moving windows."""
 
 import subprocess
 import os
@@ -7,7 +8,9 @@ import sys
 DEBUG = False
 
 class Screen(object):
+    """Represents the screen."""
     def __init__(self, rows, cols, padding_bottom=20):
+        """Define the screen grid in pixels based on screen size."""
         self.rows = rows
         self.cols = cols
         self.padding_bottom = padding_bottom
@@ -50,7 +53,9 @@ class Screen(object):
 
     # umm ignore that the rows and columns switch here
     def get_coords(self, cols, rows):
-        """Precondition: two two-tuples of (start,end) for rows and columns."""
+        """Precondition: two two-tuples of (start,end) for rows and columns.
+           Postcondition: x, y, w, h for new window location.
+        """
         row_start, row_end = rows
         col_start, col_end = cols
 
@@ -68,15 +73,29 @@ class Screen(object):
         w = y_coords[1] - y_coords[0]
         h = x_coords[1] - x_coords[0]
 
-        return (x, y, h, w)
+        return (x, y, w, h)
 
-    def move_active(self,x,y,w,h):
-        command = ','.join(map(str, [" wmctrl -r :ACTIVE: -e 0", x, y, w, h]))
+    def move_active(self, cols, rows):
+        """Move the currently active window to specified location.
+           Precondition: two two-tuples of (start,end) for rows and columns.
+        """
+        x, y, w, h = self.get_coords(cols, rows)
+        self.move_coords(x, y, w, h)
+
+
+    def move_coords(self, x, y, w, h):
+        """Move active window to specified coords."""
+
+        # yeeeah at some point height and width get messed up
+        #TODO fix that
+        command = ','.join(map(str, [" wmctrl -r :ACTIVE: -e 0", x, y, h, w]))
 
         if DEBUG:
             print(command)
 
         os.system(command)
+
+
 
 
 
@@ -92,10 +111,9 @@ if __name__ == "__main__":
     rows_filled = (first_row, last_row)
 
     s = Screen(screen_rows, screen_cols)
-    c = s.get_coords(rows_filled, cols_filled)
 
     if DEBUG:
         print(c)
 
-    s.move_active(*c)
+    s.move_active(rows_filled, cols_filled)
 

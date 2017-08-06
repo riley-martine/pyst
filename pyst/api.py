@@ -58,25 +58,25 @@ def move(location):
     }
     screen = Screen(2, 2)
     filled = mapping[location]
-    coords = screen.get_coords(filled['cols'], filled['rows'])
+    cols_filled = filled['cols']
+    rows_filled = filled['rows']
 
     # I have been tearing my hair out over this one
     # WMCTRL works the first time, no problem.
     # The second time, running the same command, it ignores borders/decoration
     # The line below "resets" the geometry so it has to take it again.
     # See askubuntu.com/questions/576604/what-causes-the-deviation-in-the-wmctrl-window-move-command
-    screen.move_active(0, 0, 0, 0)
-    screen.move_active(*coords)
+    screen.move_coords(0, 0, 0, 0)
+    screen.move_active(cols_filled, rows_filled)
 
 def explicit_move(screen_grid, cols_filled, rows_filled):
     """Move via an explicit grid location specification."""
 
-    screen = Screen(*screen_grid)
-    coords = screen.get_coords(cols_filled, rows_filled)
+    screen = Screen(screen_grid[0], screen_grid[1])
 
     # See comment in move()
-    screen.move_active(0, 0, 0, 0)
-    screen.move_active(*coords)
+    screen.move_coords(0, 0, 0, 0)
+    screen.move_active(cols_filled, rows_filled)
 
 
 def main(args=None):

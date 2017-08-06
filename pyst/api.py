@@ -5,9 +5,9 @@ import argparse
 import sys
 
 try:
-    from screen import Screen
+    from screen import Screen, move_coords
 except ModuleNotFoundError:
-    from pyst.screen import Screen
+    from pyst.screen import Screen, move_coords
 
 
 def parse_args(args):
@@ -75,7 +75,7 @@ def explicit_move(screen_grid, cols_filled, rows_filled):
     screen = Screen(screen_grid[0], screen_grid[1])
 
     # See comment in move()
-    screen.move_coords(0, 0, 0, 0)
+    move_coords(0, 0, 0, 0)
     screen.move_active(cols_filled, rows_filled)
 
 

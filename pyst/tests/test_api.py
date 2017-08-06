@@ -1,6 +1,6 @@
+"""Test API translation facility. Unit tests, no integration tests."""
 import unittest
-
-import pystiler
+import pystiler.api
 
 class TestParser(unittest.TestCase):
 

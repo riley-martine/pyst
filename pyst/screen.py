@@ -60,18 +60,18 @@ class Screen(object):
         col_start, col_end = cols
 
         x_start_coord = self.grid[0][col_start-1][0][0]
-        x_end_coord =   self.grid[0][col_end - 1][0][1]
-        x_coords = (x_start_coord, x_end_coord)
+        x_final_coord =  self.grid[0][col_end - 1][0][1]
+        x_coords = (x_start_coord, x_final_coord)
         
         y_start_coord = self.grid[row_start-1][0][1][0]
-        y_end_coord =   self.grid[row_end - 1][0][1][1] - self.padding_bottom
-        y_coords = (y_start_coord, y_end_coord)
+        y_final_coord = self.grid[row_end - 1][0][1][1] - self.padding_bottom
+        y_coords = (y_start_coord, y_final_coord)
 
 
-        x = x_coords[0]
-        y = y_coords[0]
-        w = y_coords[1] - y_coords[0]
-        h = x_coords[1] - x_coords[0]
+        x = x_start_coord
+        y = y_start_coord
+        w = x_final_coord - x_start_coord
+        h = y_final_coord - y_start_coord
 
         return (x, y, w, h)
 
@@ -86,9 +86,7 @@ class Screen(object):
     def move_coords(self, x, y, w, h):
         """Move active window to specified coords."""
 
-        # yeeeah at some point height and width get messed up
-        #TODO fix that
-        command = ','.join(map(str, [" wmctrl -r :ACTIVE: -e 0", x, y, h, w]))
+        command = ','.join(map(str, [" wmctrl -r :ACTIVE: -e 0", x, y, w, h]))
 
         if DEBUG:
             print(command)

@@ -1,4 +1,4 @@
-"""Setup for pyst, a simple tiler for non-tiling WMs"""
+"""Setup for pystiler, a simple tiler for non-tiling WMs"""
 from setuptools import setup
 
 def readme():
@@ -7,7 +7,7 @@ def readme():
         return readme_file.read()
 
 setup(name='pystiler',
-      version='0.2.5',
+      version='0.2.7',
       description='Python simple tiler for non-tiling window managers',
       long_description=readme(),
       classifiers=[
@@ -21,7 +21,7 @@ setup(name='pystiler',
           'Topic :: Desktop Environment :: Window Managers',
       ],
       keywords='window-manager tiling wm command-line cli',
-      url='http://github.com/riley-martine/pystiler',
+      url='http://github.com/riley-martine/pyst',
       author='Riley Martine',
       author_email='riley.martine.0@gmail.com',
       license='MIT',

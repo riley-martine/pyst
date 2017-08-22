@@ -66,7 +66,7 @@ def move(location):
     # The second time, running the same command, it ignores borders/decoration
     # The line below "resets" the geometry so it has to take it again.
     # See askubuntu.com/questions/576604/what-causes-the-deviation-in-the-wmctrl-window-move-command
-    screen.move_coords(0, 0, 0, 0)
+    move_coords(0, 0, 0, 0)
     screen.move_active(cols_filled, rows_filled)
 
 def explicit_move(screen_grid, cols_filled, rows_filled):

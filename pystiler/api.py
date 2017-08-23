@@ -6,10 +6,10 @@ import sys
 
 try:
     from screen import Screen, move_coords
-    from workspaces import run_config
+    from workspaces import run_config, make_example_config
 except ModuleNotFoundError:
     from pystiler.screen import Screen, move_coords
-    from pystiler.workspaces import run_config
+    from pystiler.workspaces import run_config, make_example_config
 
 
 def parse_args(args):
@@ -45,6 +45,8 @@ def parse_args(args):
 
     parser_config = subparsers.add_parser('workspace', help='Load workspace from config')
     parser_config.add_argument('workspace_name', type=str) # A workspace is a section
+
+    parser_create_example = subparsers.add_parser('workspace-example', help='Create example workspace config in ~/.pystiler.ini')
 
     return parser.parse_args(args)
 
@@ -101,6 +103,9 @@ def main(args=None):
         explicit_move(screen_grid, cols_filled, rows_filled)
     elif params.cmd == 'workspace':
         run_config(params.workspace_name)
+    elif params.cmd == 'workspace-example':
+        make_example_config()
+        print('Made example config in ~/.pystiler.ini')
 
 
 if __name__ == "__main__":

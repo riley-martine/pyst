@@ -65,15 +65,17 @@ defines a screen grid of 3 rows, 2 columns, and resizes the active window to fil
 
 Workspacing
 ~~~~~~~~~~~
-Using this script, you can define and run workspace configs.
-Example:
+Using this script, you can define and run workspace configs. Workspace configs allow you to set up worksapces where certain applications are opened in positions on the screen.
 
-::
-  
-    #!/bin/sh
-    xfce4-terminal && pyst move left
-    xfce4-terminal --working-directory=/var/www && pyst move bottom_right
-    xfce4-terminal --working-directory=/home && pyst move top_right
+Pystiler looks for ~/.pystiler.ini for the config file. It uses configparser to parse it. You can generate an example config by running ``pyst workspace-example``. There are three types of config modes:
+
+- simple, where the application (and optionally, directory) is the same every time, but the locations are different
+- specific, where there may be more than one application, and the directories might be different
+- explicit, where you can use non-named locations using the explicit api.
+
+Start a workspace with ``pyst workspace $workspacename``
+
+Currently, terminaldir does nothing, and neither does explicit. These are on the todo list.
 
 
 Todos for the project
@@ -84,6 +86,9 @@ Todos for the project
 -  [x] Add simple CLI interface
 -  [x] Add simple test cases
 -  [x] Make nice python package
+-  [x] Add simple workspace config
+-  [ ] Add complex workspace config
+-  [ ] Allow passing arguments to workspace config
 -  [ ] Add coverage
 -  [ ] Use logging instead of debug flag
 -  [ ] Add tests for window resizing

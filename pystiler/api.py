@@ -6,8 +6,10 @@ import sys
 
 try:
     from screen import Screen, move_coords
+    from workspaces import run_config
 except ModuleNotFoundError:
     from pystiler.screen import Screen, move_coords
+    from pystiler.workspaces import run_config
 
 
 def parse_args(args):
@@ -39,6 +41,10 @@ def parse_args(args):
     parser_api.add_argument('last_column', type=int)
     parser_api.add_argument('first_row', type=int)
     parser_api.add_argument('last_row', type=int)
+
+
+    parser_config = subparsers.add_parser('workspace', help='Load workspace from config')
+    parser_config.add_argument('workspace_name', type=str) # A workspace is a section
 
     return parser.parse_args(args)
 
@@ -93,7 +99,8 @@ def main(args=None):
         cols_filled = (params.first_column, params.last_column)
         rows_filled = (params.first_row, params.last_row)
         explicit_move(screen_grid, cols_filled, rows_filled)
-
+    elif params.cmd == 'workspace':
+        run_config(params.workspace_name)
 
 
 if __name__ == "__main__":

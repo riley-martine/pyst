@@ -78,6 +78,31 @@ Start a workspace with ``pyst workspace $workspacename``
 Currently, terminaldir does nothing, and neither does explicit. These are on the todo list.
 
 
+
+Aliases
+~~~~~~~
+Here's some nice aliases for use in terminals:
+
+::
+
+    alias l='pyst move left'
+    alias r='pyst move right' # override r builtin
+    alias tl='pyst move top_left'
+    alias tr='pyst move top_right' # override tr builtin
+    alias bl='pyst move bottom_left'
+    alias br='pyst move bottom_right'
+    alias m='pyst move maximize'
+    alias t='pyst move top'
+    alias b='pyst move bottom'
+    alias ws='pyst workspace'
+    function wso {
+    	pyst workspace $1
+    	exit
+    }
+ 
+
+
+
 Todos for the project
 ~~~~~~~~~~~~~~~~~~~~~
 

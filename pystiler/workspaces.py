@@ -36,7 +36,7 @@ def parse_config(section):
         commands.append('pyst move ' + command_parts['applocation'])
 
     return '; '.join(commands)
-        
+
 
 def translate_simple_specific(config, section):
     """Turn a simple config into a specific one."""
@@ -44,53 +44,58 @@ def translate_simple_specific(config, section):
     specific_dict = {'mode': 'specific', 'applist': []}
 
     for location in eval(simple_dict['applocation']):
-        app_item = {'application': simple_dict['application'],
-                    'terminalDir': simple_dict['terminaldir'],
-		    'applocation': location}
+        app_item = {
+            'application': simple_dict['application'],
+            'terminalDir': simple_dict['terminaldir'],
+            'applocation': location}
         specific_dict['applist'].append(app_item)
 
 
     return specific_dict
-        
+
 
 
 def make_example_config():
+    """Define a working example config, and write it to ~/.pystiler.ini"""
     config = configparser.ConfigParser()
     # Only one application, only named locations
-    config['example_simple'] = {'mode': 'simple', 
-                                'application': 'xfce4-terminal',
-                                'terminaldir': '~/Projects',
-                                'applocation': ['top_left', 'bottom_left', 'right']}
+    config['example_simple'] = {
+        'mode': 'simple',
+        'application': 'xfce4-terminal',
+        'terminaldir': '~/Projects',
+        'applocation': ['top_left', 'bottom_left', 'right']}
 
     # >1 applications, only named locations
-    config['example_specific'] = {'mode': 'specific', 
+    config['example_specific'] = {'mode': 'specific',
                                   'appList': [{'application': 'xfce4-terminal',
-				               'terminaldir': '~/Projects',
-					       'applocation': 'top_left'},
-					      {'application': 'xfce4-terminal',
-					       'terminaldir': '~/Downloads',
-					       'appLocation': 'right'}]}
+                                               'terminaldir': '~/Projects',
+                                               'applocation': 'top_left'},
+                                              {'application': 'xfce4-terminal',
+                                               'terminaldir': '~/Downloads',
+                                               'appLocation': 'right'}]}
     # >1 applications, any locations
     config['example_explicit'] = {'mode': 'explicit',
                                   'applist': [{'application': 'xfce4-terminal',
-				               'terminaldir': '/etc',
-					       'applocation': {'screen_columns': 3,
-						                'screen_rows'   : 3,
-								'first_column'  : 1,
-								'last_column'   : 1,
-								'first_row'     : 1,
-								'last_row'      : 3}},
-					      {'application': 'xfce4-terminal',
-					       'terminaldir': '~/',
-				               'applocation': {'screen_columns': 3,
-						                'screen_rows'   : 3,
-								'first_column'  : 2,
-								'last_column'   : 2,
-								'first_row'     : 1,
-								'last_row'      : 3}}]}
+                                               'terminaldir': '/etc',
+                                               'applocation': {'screen_columns': 3,
+                                                               'screen_rows'   : 3,
+                                                               'first_column'  : 1,
+                                                               'last_column'   : 1,
+                                                               'first_row'     : 1,
+                                                               'last_row'      : 3}},
+                                              {'application': 'xfce4-terminal',
+                                               'terminaldir': '~/',
+                                               'applocation': {'screen_columns': 3,
+                                                               'screen_rows'   : 3,
+                                                               'first_column'  : 2,
+                                                               'last_column'   : 2,
+                                                               'first_row'     : 1,
+                                                               'last_row'      : 3}}]}
     return write_config(config)
 
+
 def write_config(config):
+    """Logic to write a config file to disk, without erasing unmodified sections."""
     parser = configparser.ConfigParser()
     parser.read(CONFIG_FILE)
 
@@ -101,11 +106,12 @@ def write_config(config):
             value = config.get(section, option)
             parser.set(section, option, value)
 
-    with open(CONFIG_FILE, 'w') as f:
-        parser.write(f)
-    
+    with open(CONFIG_FILE, 'w') as configfile:
+        parser.write(configfile)
+
 
 def run_config(section):
+    """Run a predefined workspace (section) from the config file."""
     call(parse_config(section), shell=True)
 
 

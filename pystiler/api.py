@@ -46,7 +46,9 @@ def parse_args(args):
     parser_config = subparsers.add_parser('workspace', help='Load workspace from config')
     parser_config.add_argument('workspace_name', type=str) # A workspace is a section
 
-    parser_create_example = subparsers.add_parser('workspace-example', help='Create example workspace config in ~/.pystiler.ini')
+    parser_create_example = subparsers.add_parser(
+        'workspace-example',
+        help='Create example workspace config in ~/.pystiler.ini')
 
     return parser.parse_args(args)
 
@@ -110,4 +112,3 @@ def main(args=None):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-

@@ -79,7 +79,7 @@ Pystiler looks for ~/.pystiler.ini for the config file. It uses configparser to 
 
 Start a workspace with ``pyst workspace $workspacename``
 
-Currently, terminaldir does nothing, and neither does explicit. These are on the todo list.
+Currently, terminaldir does nothing. This is on the todo list.
 
 
 
@@ -116,7 +116,7 @@ Todos for the project
 -  [x] Add simple test cases
 -  [x] Make nice python package
 -  [x] Add simple workspace config
--  [ ] Add complex workspace config
+-  [x] Add complex workspace config
 -  [ ] Allow passing arguments to workspace config
 -  [ ] Add coverage
 -  [ ] Use logging instead of debug flag

@@ -2,6 +2,7 @@
 
 import configparser
 from subprocess import call
+import sys
 
 # try:
 #     from api import move, explicit_move
@@ -17,16 +18,24 @@ def parse_config(section):
     config.read(CONFIG_FILE)
     if not config.has_section(section):
         print(f"Workspace '{section}' could not be found!")
-        return False
+        sys.exit(1)
 
     mode = config.get(section, 'mode')
     if mode == 'simple':
         specific = translate_simple_specific(config, section)
     elif mode == 'specific':
         specific = config[section]
+    elif mode == 'explicit':
+        commands = []
+        applist = eval(config[section]['applist'])
+        for app in applist:
+            commands.append(app['application'])
+            locs = ['screen_columns', 'screen_rows', 'first_column', 'last_column', 'first_row', 'last_row']
+            commands.append('pyst explicit ' + ' '.join([str(app['applocation'][loc]) for loc in locs]))
+        return '; '.join(commands)
     else:
         print(f"Mode '{mode}' not supported yet.")
-        return False
+        sys.exit(1)
     # Build up shell commands
     # Requires pyst (this module) to be installed
     # hot tip don't put python code in your config file it'll get parsed

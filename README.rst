@@ -1,6 +1,14 @@
 Pystiler (a PYthon Simple TILER)
 ================================
 
+.. image:: https://api.codacy.com/project/badge/Grade/d1f80616b8344a3d84de1016defae26d
+   :alt: Codacy Badge
+   :target: https://www.codacy.com/app/rmartine/pyst?utm_source=github.com&utm_medium=referral&utm_content=riley-martine/pyst&utm_campaign=badger
+
+.. image:: https://api.codacy.com/project/badge/Grade/81abb3b4a6304214aef12df627843d07
+   :alt: Codacy Badge
+   :target: https://www.codacy.com/app/rmartine/stiler?utm_source=github.com&utm_medium=referral&utm_content=riley-martine/pyst&utm_campaign=badger
+
 .. image:: https://badge.fury.io/py/pystiler.svg
        :target: https://badge.fury.io/py/pystiler
 
@@ -75,7 +83,7 @@ Pystiler looks for ~/.pystiler.ini for the config file. It uses configparser to 
 
 Start a workspace with ``pyst workspace $workspacename``
 
-Currently, terminaldir does nothing, and neither does explicit. These are on the todo list.
+Currently, terminaldir does nothing. This is on the todo list.
 
 
 
@@ -112,7 +120,7 @@ Todos for the project
 -  [x] Add simple test cases
 -  [x] Make nice python package
 -  [x] Add simple workspace config
--  [ ] Add complex workspace config
+-  [x] Add complex workspace config
 -  [ ] Allow passing arguments to workspace config
 -  [ ] Add coverage
 -  [ ] Use logging instead of debug flag

@@ -1,9 +1,8 @@
 Pystiler (a PYthon Simple TILER)
 ================================
 
-.. image:: https://api.codacy.com/project/badge/Grade/81abb3b4a6304214aef12df627843d07
-   :alt: Codacy Badge
-   :target: https://www.codacy.com/app/rmartine/stiler?utm_source=github.com&utm_medium=referral&utm_content=riley-martine/pyst&utm_campaign=badger
+.. image:: https://api.codacy.com/project/badge/Grade/d1f80616b8344a3d84de1016defae26d
+   :target: https://www.codacy.com/app/rmartine/pyst?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=riley-martine/pyst&amp;utm_campaign=Badge_Grade
 
 .. image:: https://badge.fury.io/py/pystiler.svg
        :target: https://badge.fury.io/py/pystiler
